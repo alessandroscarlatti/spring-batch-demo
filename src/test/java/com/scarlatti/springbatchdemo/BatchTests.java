@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles({"default", "integration"})
+@ActiveProfiles({"default", "unitTest"})
 public class BatchTests {
 
 	@Test
