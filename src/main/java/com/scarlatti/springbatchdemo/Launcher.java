@@ -5,6 +5,7 @@ import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import java.util.Map;
  * Saturday, 2/24/2018
  */
 @Component
+@Profile("!integration")
 public class Launcher implements CommandLineRunner {
 
     private JobLauncher jobLauncher;
