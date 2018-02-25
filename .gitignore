@@ -25,8 +25,5 @@ nbdist/
 .nb-gradle/
 
 ### Job Repository Database ###
-# database file
-batch.mv.db
-
-# error log file
-batch.trace.db
+#ignore h2 .db files
+*.db

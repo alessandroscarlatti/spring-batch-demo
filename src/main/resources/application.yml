@@ -1,6 +1,7 @@
 spring:
+  batch.job.enabled: false
   datasource:
-    url: jdbc:h2:file:C:\Users\pc\IdeaProjects\spring-batch-demo\batch
+    url: jdbc:h2:tcp://localhost/C:\Users\pc\IdeaProjects\spring-batch-demo\batch;AUTO_SERVER=TRUE
     driverClassName: org.h2.Driver
     username: sa  #H2 default
-    password:   #H2 default
+    password:     #H2 default
