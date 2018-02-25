@@ -5,10 +5,8 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,11 +20,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableBatchProcessing
 public class Config {
-    @Autowired
     private JobBuilderFactory jobBuilders;
-
-    @Autowired
     private StepBuilderFactory stepBuilders;
+
+    public Config(JobBuilderFactory jobBuilders, StepBuilderFactory stepBuilders) {
+        this.jobBuilders = jobBuilders;
+        this.stepBuilders = stepBuilders;
+    }
 
     @Bean
     public Job customerReportJob() {
@@ -35,9 +35,9 @@ public class Config {
             .build();
     }
 
-    @Bean
+    @Bean("my cool step")
     public Step taskletStep() {
-        return stepBuilders.get("taskletStep")
+        return stepBuilders.get("my amazing tasklet")
             .tasklet(tasklet())
             .build();
     }
