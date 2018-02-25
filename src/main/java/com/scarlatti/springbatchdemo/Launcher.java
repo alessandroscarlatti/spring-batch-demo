@@ -19,7 +19,7 @@ import java.util.Map;
  * Saturday, 2/24/2018
  */
 @Component
-@Profile("!integration")
+@Profile("!unitTest")
 public class Launcher implements CommandLineRunner {
 
     private JobLauncher jobLauncher;
