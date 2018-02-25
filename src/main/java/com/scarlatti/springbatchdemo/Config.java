@@ -4,9 +4,7 @@ import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,32 +19,15 @@ import org.springframework.context.annotation.Configuration;
 @EnableBatchProcessing
 public class Config {
     private JobBuilderFactory jobBuilders;
-    private StepBuilderFactory stepBuilders;
 
-    public Config(JobBuilderFactory jobBuilders, StepBuilderFactory stepBuilders) {
+    public Config(JobBuilderFactory jobBuilders) {
         this.jobBuilders = jobBuilders;
-        this.stepBuilders = stepBuilders;
     }
 
     @Bean
-    public Job customerReportJob() {
-        return jobBuilders.get("customerReportJob")
-            .start(taskletStep())
+    public Job job(@Qualifier("step1") Step step1) {
+        return jobBuilders.get("springBatchDemo")
+            .start(step1)
             .build();
-    }
-
-    @Bean("my cool step")
-    public Step taskletStep() {
-        return stepBuilders.get("my amazing tasklet")
-            .tasklet(tasklet())
-            .build();
-    }
-
-    @Bean
-    public Tasklet tasklet() {
-        return (contribution, chunkContext) -> {
-            System.out.println("hello");
-            return RepeatStatus.FINISHED;
-        };
     }
 }
