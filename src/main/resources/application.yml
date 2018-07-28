@@ -5,3 +5,6 @@ spring:
     driverClassName: org.h2.Driver
     username: sa  #H2 default
     password:     #H2 default
+    initialize: false
+
+# Note: will need to start H2 database locally for these tests...

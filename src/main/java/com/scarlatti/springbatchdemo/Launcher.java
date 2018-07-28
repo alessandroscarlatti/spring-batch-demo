@@ -1,13 +1,15 @@
 package com.scarlatti.springbatchdemo;
 
+import com.scarlatti.springbatchdemo.config.BeanNames;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +20,7 @@ import java.util.Map;
  * /_/ |_/_/\__/___/___/\_,_/_//_/\_,_/_/  \___/ /___/\__/\_,_/_/ /_/\_,_/\__/\__/_/
  * Saturday, 2/24/2018
  */
-@Component
-@Profile("!unitTest")
+@Component(BeanNames.Launcher)
 public class Launcher implements CommandLineRunner {
 
     private JobLauncher jobLauncher;
@@ -36,9 +37,10 @@ public class Launcher implements CommandLineRunner {
         jobLauncher.run(job, new JobParameters(params));
     }
 
-    private Map<String, JobParameter> buildJobParams() {
+    public static Map<String, JobParameter> buildJobParams() {
         Map<String, JobParameter> params = new HashMap<>();
-        params.put("startTime", new JobParameter(System.currentTimeMillis()));
+        long ts = ZonedDateTime.now(ZoneId.of("UTC")).toInstant().toEpochMilli();
+        params.put("startTime", new JobParameter(ts));
 
         return params;
     }

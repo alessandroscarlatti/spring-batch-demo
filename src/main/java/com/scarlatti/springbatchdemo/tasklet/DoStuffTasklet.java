@@ -1,4 +1,4 @@
-package com.scarlatti.springbatchdemo.step1;
+package com.scarlatti.springbatchdemo.tasklet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
  * Saturday, 2/24/2018
  */
 @Component
-public class PrintStuff implements Tasklet {
+public class DoStuffTasklet implements Tasklet {
 
-    private static final Logger log = LoggerFactory.getLogger(PrintStuff.class);
+    private static final Logger log = LoggerFactory.getLogger(DoStuffTasklet.class);
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        log.info("Running PrintStuff :)");
+        log.info("Running DoStuff :)");
         log.info("Spring Batch is working :)");
 
         return RepeatStatus.FINISHED;

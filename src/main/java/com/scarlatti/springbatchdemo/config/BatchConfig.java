@@ -1,4 +1,4 @@
-package com.scarlatti.springbatchdemo;
+package com.scarlatti.springbatchdemo.config;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -17,16 +17,16 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableBatchProcessing
-public class Config {
+public class BatchConfig {
     private JobBuilderFactory jobBuilders;
 
-    public Config(JobBuilderFactory jobBuilders) {
+    public BatchConfig(JobBuilderFactory jobBuilders) {
         this.jobBuilders = jobBuilders;
     }
 
     @Bean
-    public Job job(@Qualifier("step1") Step step1) {
-        return jobBuilders.get("springBatchDemo")
+    public Job job(@Qualifier(BeanNames.Step1) Step step1) {
+        return jobBuilders.get(BeanNames.BatchName)
             .start(step1)
             .build();
     }

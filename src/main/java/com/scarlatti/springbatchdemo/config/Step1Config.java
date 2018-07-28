@@ -1,5 +1,6 @@
-package com.scarlatti.springbatchdemo.step1;
+package com.scarlatti.springbatchdemo.config;
 
+import com.scarlatti.springbatchdemo.tasklet.DoStuffTasklet;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.context.annotation.Bean;
@@ -12,19 +13,19 @@ import org.springframework.context.annotation.Configuration;
  * /_/ |_/_/\__/___/___/\_,_/_//_/\_,_/_/  \___/ /___/\__/\_,_/_/ /_/\_,_/\__/\__/_/
  * Saturday, 2/24/2018
  */
-@Configuration("step1Config")
-public class Config {
+@Configuration
+public class Step1Config {
 
     private StepBuilderFactory stepBuilders;
 
-    public Config(StepBuilderFactory stepBuilders) {
+    public Step1Config(StepBuilderFactory stepBuilders) {
         this.stepBuilders = stepBuilders;
     }
 
-    @Bean("step1")
-    public Step step1(PrintStuff printStuff) {
-        return stepBuilders.get("step1")
-            .tasklet(printStuff)
+    @Bean(BeanNames.Step1)
+    public Step step1(DoStuffTasklet doStuffTasklet) {
+        return stepBuilders.get(BeanNames.Step1)
+            .tasklet(doStuffTasklet)
             .build();
     }
 }
