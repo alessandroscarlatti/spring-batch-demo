@@ -2,7 +2,6 @@ package com.scarlatti.springbatchdemo.config;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -16,18 +15,19 @@ import org.springframework.context.annotation.Configuration;
  * Saturday, 2/24/2018
  */
 @Configuration
-@EnableBatchProcessing
-public class BatchConfig {
-    private JobBuilderFactory jobBuilders;
+public class JobConfig {
+    private JobBuilderFactory jobBuilderFactory;
 
-    public BatchConfig(JobBuilderFactory jobBuilders) {
-        this.jobBuilders = jobBuilders;
+    public JobConfig(JobBuilderFactory jobBuilderFactory) {
+        this.jobBuilderFactory = jobBuilderFactory;
     }
 
     @Bean
-    public Job job(@Qualifier(BeanNames.Step1) Step step1) {
-        return jobBuilders.get(BeanNames.BatchName)
+    public Job job(@Qualifier(BeanNames.Step1) Step step1,
+                   @Qualifier(BeanNames.Step2) Step step2) {
+        return jobBuilderFactory.get(BeanNames.BatchName)
             .start(step1)
+            .next(step2)
             .build();
     }
 }

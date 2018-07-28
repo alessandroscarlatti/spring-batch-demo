@@ -9,6 +9,7 @@ package com.scarlatti.springbatchdemo.config;
  */
 public interface BeanNames {
     String Step1 = "step1";
+    String Step2 = "step2";
     String BatchName = "springBatchDemo";
     String Launcher = "launcher";
 }

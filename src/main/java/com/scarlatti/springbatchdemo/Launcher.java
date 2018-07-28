@@ -33,15 +33,14 @@ public class Launcher implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Map<String, JobParameter> params = buildJobParams();
-        jobLauncher.run(job, new JobParameters(params));
+        jobLauncher.run(job, newJobParams());
     }
 
-    public static Map<String, JobParameter> buildJobParams() {
+    public static JobParameters newJobParams() {
         Map<String, JobParameter> params = new HashMap<>();
         long ts = ZonedDateTime.now(ZoneId.of("UTC")).toInstant().toEpochMilli();
         params.put("startTime", new JobParameter(ts));
 
-        return params;
+        return new JobParameters(params);
     }
 }

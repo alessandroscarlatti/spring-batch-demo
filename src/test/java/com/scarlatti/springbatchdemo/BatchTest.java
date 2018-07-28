@@ -19,6 +19,6 @@ public class BatchTest {
 
 	@Test
 	public void contextLoads() throws Exception {
-		jobLauncherTestUtils.launchJob(new JobParameters(Launcher.buildJobParams()));
+		jobLauncherTestUtils.launchJob(Launcher.newJobParams());
 	}
 }
