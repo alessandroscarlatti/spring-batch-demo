@@ -9,13 +9,6 @@ package com.scarlatti.springbatchdemo.config;
  */
 public interface BeanNames {
     String Launcher = "launcher";
-    String JobSelection = "jobSelection";
-
-    String ShortJob = "shortJob";
-    String LongJob = "longJob";
-    String FailureJob = "failureJob";
-
     String Step1 = "step1";
-    String Step2 = "step2";
-    String FailureStep = "failureStep";
+    String Job = "job";
 }

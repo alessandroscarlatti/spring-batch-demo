@@ -2,10 +2,7 @@ package com.scarlatti.springbatchdemo.tasklet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepContribution;
-import org.springframework.batch.core.StepExecution;
-import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
@@ -19,15 +16,13 @@ import org.springframework.stereotype.Component;
  * Saturday, 2/24/2018
  */
 @Component
-public class DoMoreStuffTasklet implements Tasklet {
+public class FailureTasklet implements Tasklet {
 
-    private static final Logger log = LoggerFactory.getLogger(DoMoreStuffTasklet.class);
+    private static final Logger log = LoggerFactory.getLogger(FailureTasklet.class);
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        log.info("Running DoMoreStuff :)");
-        log.info("Spring Batch is definitely working :)");
-
-        return RepeatStatus.FINISHED;
+        log.info("Imminent failure...");
+        throw new IllegalStateException("Catastrophic failure!");
     }
 }

@@ -1,7 +1,6 @@
 package com.scarlatti.springbatchdemo.config;
 
-import com.scarlatti.springbatchdemo.tasklet.DoMoreStuffTasklet;
-import com.scarlatti.springbatchdemo.tasklet.DoStuffTasklet;
+import com.scarlatti.springbatchdemo.tasklet.StringifyTasklet;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.context.annotation.Bean;
@@ -15,24 +14,18 @@ import org.springframework.context.annotation.Configuration;
  * Saturday, 2/24/2018
  */
 @Configuration
-public class StepConfig {
+public class StepsConfig {
 
     private StepBuilderFactory stepBuilderFactory;
 
-    public StepConfig(StepBuilderFactory stepBuilderFactory) {
+    public StepsConfig(StepBuilderFactory stepBuilderFactory) {
         this.stepBuilderFactory = stepBuilderFactory;
     }
 
-    @Bean(BeanNames.Step1)
-    public Step step1(DoStuffTasklet tasklet) {
-        return stepBuilderFactory.get(BeanNames.Step1)
-            .tasklet(tasklet)
-            .build();
-    }
-
-    @Bean(BeanNames.Step2)
-    public Step step2(DoMoreStuffTasklet tasklet) {
-        return stepBuilderFactory.get(BeanNames.Step2)
+    @Bean
+    Step step1(StringifyTasklet tasklet) {
+        return stepBuilderFactory
+            .get(BeanNames.Step1)
             .tasklet(tasklet)
             .build();
     }
