@@ -1,10 +1,22 @@
 package com.scarlatti.springbatchdemo.config;
 
+import com.scarlatti.springbatchdemo.exception.SkipProcessingStringException;
+import com.scarlatti.springbatchdemo.listener.SpecialSkipPolicy;
+import com.scarlatti.springbatchdemo.listener.StringProcessorListener;
+import com.scarlatti.springbatchdemo.listener.StringReaderListener;
+import com.scarlatti.springbatchdemo.listener.StringWriteListener;
+import com.scarlatti.springbatchdemo.processor.StringProcessor;
+import com.scarlatti.springbatchdemo.reader.ListStringReader;
+import com.scarlatti.springbatchdemo.tasklet.SaveToDatabaseTasklet;
 import com.scarlatti.springbatchdemo.tasklet.StringifyTasklet;
+import com.scarlatti.springbatchdemo.writer.StringWriter;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ______    __                         __           ____             __     __  __  _
@@ -28,5 +40,36 @@ public class StepsConfig {
             .get(BeanNames.Step1)
             .tasklet(tasklet)
             .build();
+    }
+
+    @Bean(BeanNames.Step2)
+    Step step2(ListStringReader reader, StringProcessor processor, StringProcessorListener exceptionHandler, StringReaderListener readerListener, StringWriteListener writeListener, StringWriter writer, SpecialSkipPolicy skipPolicy) {
+        return stepBuilderFactory
+            .get(BeanNames.Step2)
+            .<String, String>chunk(Integer.MAX_VALUE)
+            .reader(reader)
+            .processor(processor)
+            .listener(exceptionHandler)
+            .faultTolerant()
+            .skipLimit(4)
+            .skip(RuntimeException.class)
+//            .skipPolicy(skipPolicy)
+            .<String>writer(writer)
+            .listener(readerListener)
+            .listener(writeListener)
+            .build();
+    }
+
+    @Bean(BeanNames.Step3)
+    Step step3(SaveToDatabaseTasklet tasklet) {
+        return stepBuilderFactory
+            .get(BeanNames.Step3)
+            .tasklet(tasklet)
+            .build();
+    }
+
+    @Bean(BeanNames.TransformedStrings)
+    List<String> transformedStrings() {
+        return new ArrayList<>();
     }
 }

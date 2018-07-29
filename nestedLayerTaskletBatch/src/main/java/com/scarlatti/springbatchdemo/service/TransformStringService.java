@@ -23,9 +23,9 @@ public class TransformStringService {
      */
     public String tryTransformString(String original) {
         transformStringInvocationCount++;
-        int random = new Random(System.currentTimeMillis()).nextInt(3);
+        int random = new Random(System.currentTimeMillis()).nextInt(2);
 
-        if (transformStringInvocationCount == random) {
+        if (transformStringInvocationCount % 2 == random) {
             throw new RuntimeException("Unable to reach transformation service for string " + original);
         } else {
             return original + original;

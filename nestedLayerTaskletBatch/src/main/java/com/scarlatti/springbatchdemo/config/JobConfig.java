@@ -24,10 +24,14 @@ public class JobConfig {
     }
 
     @Bean
-    public Job job(@Qualifier(BeanNames.Step1) Step step1) {
+    public Job job(@Qualifier(BeanNames.Step1) Step step1,
+                   @Qualifier(BeanNames.Step2) Step step2,
+                   @Qualifier(BeanNames.Step3) Step step3) {
         return jobBuilderFactory
             .get(BeanNames.Job)
             .start(step1)
+            .next(step2)
+            .next(step3)
             .build();
     }
 }
