@@ -28,17 +28,16 @@ public class StringReaderListener implements ItemReadListener<String> {
 
     @Override
     public void beforeRead() {
-
+        log.info("StringReaderListener.beforeRead()");
     }
 
     @Override
     public void afterRead(String item) {
-
+        log.info("StringReaderListener.afterRead() item = [{}]", item);
     }
 
     @Override
     public void onReadError(Exception ex) {
-        System.out.println("on read error:");
-        System.out.println("ex = [" + ex + "]");
+        log.info("StringReaderListener.onReadError() ex = [{}]", ex);
     }
 }

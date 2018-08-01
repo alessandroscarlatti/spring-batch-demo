@@ -27,22 +27,26 @@ public class StringProcessorListener implements ItemProcessListener<String, Stri
 
     @Override
     public void beforeProcess(String item) {
-
+        log.info("StringProcessorListener.beforeProcess() item = [{}]", item);
     }
 
     @Override
     public void afterProcess(String item, String result) {
-
+        log.info("StringProcessorListener.afterProcess() item = [{}], result = [{}]", item, result);
     }
 
     @Override
     public void onProcessError(String string, Exception e) {
 
-        if (e instanceof SkipProcessingStringException) {
-            log.error("Observed error!");
-            System.out.println("item = [" + string + "], ex = [" + e + "]");
-            log.error("Error transforming string {}", string);
-            queueService.writeToErrorQueue(string);
-        }
+        log.info("StringProcessorListener.onProcessError() string = [{}], e = [{}]", string, e);
+
+//        if (e instanceof SkipProcessingStringException) {
+//            log.error("Observed error!");
+//            System.out.println("item = [" + string + "], ex = [" + e + "]");
+//            log.error("Error transforming string {}", string);
+//            queueService.writeToErrorQueue(string);
+//        } else {
+//            log.error("observed some other error {}", e.getMessage());
+//        }
     }
 }

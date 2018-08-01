@@ -19,6 +19,7 @@ import java.util.Queue;
 public class ListStringReader implements ItemReader<String> {
 
     private Queue<String> queue = new ArrayDeque<>(getRawStrings());
+    private int count = -1;
 
     /**
      * Read the next item.
@@ -26,6 +27,10 @@ public class ListStringReader implements ItemReader<String> {
      */
     @Override
     public String read() {
+        count++;
+        if (count == 1)
+            throw new RuntimeException("Unable to read this thing...");
+
         return queue.poll();
     }
 

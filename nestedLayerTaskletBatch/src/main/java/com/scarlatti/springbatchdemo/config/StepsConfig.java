@@ -12,9 +12,11 @@ import com.scarlatti.springbatchdemo.tasklet.StringifyTasklet;
 import com.scarlatti.springbatchdemo.writer.StringWriter;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +48,13 @@ public class StepsConfig {
     Step step2(ListStringReader reader, StringProcessor processor, StringProcessorListener exceptionHandler, StringReaderListener readerListener, StringWriteListener writeListener, StringWriter writer, SpecialSkipPolicy skipPolicy) {
         return stepBuilderFactory
             .get(BeanNames.Step2)
-            .<String, String>chunk(Integer.MAX_VALUE)
+            .<String, String>chunk(3)
             .reader(reader)
             .processor(processor)
             .listener(exceptionHandler)
             .faultTolerant()
             .skipLimit(4)
-            .skip(RuntimeException.class)
+            .skip(IOException.class)
 //            .skipPolicy(skipPolicy)
             .<String>writer(writer)
             .listener(readerListener)

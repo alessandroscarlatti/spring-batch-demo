@@ -1,5 +1,6 @@
 package com.scarlatti.springbatchdemo.config;
 
+import com.scarlatti.springbatchdemo.listener.SillyJobListener;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -29,6 +30,7 @@ public class JobConfig {
                    @Qualifier(BeanNames.Step3) Step step3) {
         return jobBuilderFactory
             .get(BeanNames.Job)
+            .listener(new SillyJobListener())
             .start(step1)
             .next(step2)
             .next(step3)

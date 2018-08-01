@@ -20,7 +20,7 @@ import java.util.Map;
  * /_/ |_/_/\__/___/___/\_,_/_//_/\_,_/_/  \___/ /___/\__/\_,_/_/ /_/\_,_/\__/\__/_/
  * Saturday, 2/24/2018
  */
-@Component(BeanNames.Launcher)
+//@Component(BeanNames.Launcher)
 public class Launcher implements CommandLineRunner {
 
     private JobLauncher jobLauncher;

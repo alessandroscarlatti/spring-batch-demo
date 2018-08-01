@@ -27,6 +27,7 @@ public class StringProcessor implements ItemProcessor<String, String> {
     @Override
     public String process(String string) {
         try {
+            log.info("StringProcessor.process() string = [{}]", string);
             return transformStringService.tryTransformString(string);
         } catch (Exception e) {
             throw new SkipProcessingStringException("Skip processing string " + string, e);

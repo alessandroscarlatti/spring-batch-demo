@@ -24,7 +24,7 @@ public class StringWriter implements ItemWriter<String> {
 
     @Override
     public void write(List<? extends String> items) throws Exception {
-        System.out.println("items = [" + items + "]");
+        System.out.println("writing items = [" + items + "]");
         strings.addAll(items);
         throw new SkipProcessingStringException("asdf");
     }
